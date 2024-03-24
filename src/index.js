@@ -5,6 +5,8 @@ import App from './App';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import Home from './components/Home';
 import Checkout from './components/Checkout';
+import { StateProvider } from './StateProvider';
+import reducer, { initialState } from './reducer';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <StateProvider initialState={initialState} reducer={reducer}>
     <RouterProvider router={router} />
+
+  </StateProvider>
   </React.StrictMode>
 );
 
