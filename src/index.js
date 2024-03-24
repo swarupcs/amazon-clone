@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Checkout from './components/Checkout';
 import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer';
+import Login from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,15 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout/>
-      }
-    ]
-  }
+      },
+
+    ],
+    
+  },
+  {
+    path: "/login",
+    element: <Login/>
+  },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
