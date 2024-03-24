@@ -20,6 +20,7 @@
     flex: 1;
     align-items: center;
     border-radius: 24px;
+    
   }
   
   .header__searchInput {
@@ -27,12 +28,14 @@
     padding: 10px;
     border: none;
     width: 100%;
+    border-radius: 8px 0px 0px 8px;
   }
   
   .header__searchIcon {
     padding: 5px;
     height: 22px !important;
     background-color: #cd9042;
+    border-radius: 0px 8px 8px 0px;
   }
   
   .header__optionLineOne {
@@ -67,3 +70,4 @@
     margin-right: 10px;
     color: white;
   }
+

@@ -1,17 +1,56 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom/dist";
+
+
 
 function Login() {
+  const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const signIn = (e) => {
         e.preventDefault();
 
+        signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    navigate("/");
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorMessage);
+  });
+
     }
 
     const register = (e) => {
         e.preventDefault();
+        createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(userCredential);
+    console.log(user);
+    if(userCredential) {
+       navigate("/");
+    }
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+
+
     }
   return (
     <div className="login">
@@ -46,11 +85,11 @@ function Login() {
           className="login__signInButton">Sign In</button>
         </form>
 
-        <p>
+        {/* <p>
           By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use &
           Sale. Please see our Privacy Notice, our Cookies Notice and our
           Interest-Based Ads Notice.
-        </p>
+        </p> */}
         <button 
         onClick={register}
         className="login__registerButton">

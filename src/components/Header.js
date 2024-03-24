@@ -1,12 +1,27 @@
 import React from "react";
 import "../styles/Header.css"
 import SearchIcon from '@mui/icons-material/Search';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 function Header() {
-  const [{cart}, dispatch] = useStateValue();
+  const [{cart, user}, dispatch] = useStateValue();
+
+  const handleAuthentication = () => {
+    if(user) {
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log("Signout Successful for user ")
+      }).catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+    }
+  }
+
   return (
     <div className="header">
     <Link to="/">
@@ -25,11 +40,17 @@ function Header() {
         />
       </div>
 
+        {/* Add the div for India flag icon */}
+        <div className="header__flag">
+        {/* Insert India flag icon here */}
+    </div>
       <div className="header__nav">
-      <Link to="/login">
-        <div className="header__option">
+      <Link to={!user && "/login"}>
+        <div 
+        onClick={handleAuthentication}
+        className="header__option">
             <span className="header__optionLineOne">Hello Guest</span>
-            <span className="header__optionLineTwo">Sign In</span>
+            <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
         </div>
         </Link>
         <div className="header__option">
@@ -42,7 +63,7 @@ function Header() {
         </div>
         <Link to="/checkout">
         <div className="header__optionBasket">
-            <ShoppingBasketIcon/>
+            <ShoppingCartOutlinedIcon/>
             <span className="header__optionLineTwo 
             header__basketCount">
                 {cart?.length}
