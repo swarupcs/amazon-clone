@@ -8,6 +8,7 @@ import Checkout from './components/Checkout';
 import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer';
 import Login from './components/Login';
+import Payment from './components/Payment';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout/>
+      },
+      {
+        path: "/payment",
+        element: <Payment/>
       },
 
     ],
