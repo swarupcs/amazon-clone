@@ -9,6 +9,11 @@ import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer';
 import Login from './components/Login';
 import Payment from './components/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripeKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+const promise = loadStripe(stripeKey);
 
 const router = createBrowserRouter([
   {
@@ -25,7 +30,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <Payment/>
+        element: [
+        <Elements stripe={promise}>
+          <Payment/>
+        </Elements>
+
+      ]
+      },
+      {
+        path: "/orders",
+        element: <Home/>
       },
 
     ],

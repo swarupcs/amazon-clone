@@ -7,6 +7,12 @@ import { auth } from './firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import { useStateValue } from './StateProvider';
 
+import { Elements } from '@stripe/react-stripe-js';
+
+
+
+// console.log(stripeKey);
+
 function App() {
   const [{}, dispatch] = useStateValue();
   const user = auth.currentUser;
